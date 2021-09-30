@@ -81,5 +81,11 @@ public class EmpleadaController {
         return ResponseEntity.ok(respuesta);
 
     }
- 
+ //Get /empleados/categorias/{catId} --> Obtiene la lista de empleados de una categoria.
+ @GetMapping("/empleados/categorias/{catId}")
+ public ResponseEntity<List<Empleada>> obtenerEmpleadasPorCategoria(@PathVariable Integer catId){
+     
+     List<Empleada> empleadas = service.traerEmpleadaPorCategoria(catId);
+     return ResponseEntity.ok(empleadas);
+ }
 }

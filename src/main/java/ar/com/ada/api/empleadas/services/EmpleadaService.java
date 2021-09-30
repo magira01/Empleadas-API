@@ -51,4 +51,16 @@ public class EmpleadaService {
         repo.save(empleada);
 
 	}
+    public List<Empleada> traerEmpleadaPorCategoria(Integer catId) {
+		
+        Categoria categoria = categoriaService.buscarCategoria(catId);
+        
+        return categoria.getEmpleadas();
+
+	}
+
+	public void guardar(Empleada empleada) {
+        repo.save(empleada);
+	}
 }
+
