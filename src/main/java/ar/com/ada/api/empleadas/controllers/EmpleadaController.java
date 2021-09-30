@@ -59,4 +59,27 @@ public class EmpleadaController {
         return ResponseEntity.ok(respuesta);
 
     }
+
+    @GetMapping("/empleados/{id}")
+    public ResponseEntity<Empleada> getEmpleadaPorId(@PathVariable Integer id){
+        Empleada empleada = service.buscarEmpleada(id);
+
+        return ResponseEntity.ok(empleada);
+    }
+   //Detele/empleados/{id} --> Da de baja un empleado poniendo el campo estado en "baja"
+    // y la fecha de baja que sea el dia actual.
+    @DeleteMapping("/empleados/{id}")
+    public ResponseEntity<?> bajaEmpleada(@PathVariable Integer id){
+
+        service.bajaEmpleadaPorId(id);
+
+        GenericResponse respuesta = new GenericResponse();
+
+        respuesta.isOk = true;
+        respuesta.message = "La empleada fue dada de baja con exito";
+
+        return ResponseEntity.ok(respuesta);
+
+    }
+ 
 }
