@@ -1,7 +1,7 @@
 package ar.com.ada.api.empleadas.entities;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -18,7 +18,7 @@ public class Empleada {
     private String nombre;
     private Integer edad;
 
-    @ManyToOne
+    @ManyToOne //join columns van donde esta FK
     @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")
     private Categoria categoria;
     private BigDecimal sueldo;
@@ -26,109 +26,126 @@ public class Empleada {
     @Column(name = "estado_id")
     private int estado;
 
-    @Column(name = "fecha_alta")
+    @Column(name= "fecha_alta")
     private Date fechaAlta;
 
     @Column(name = "fecha_baja")
     private Date fechaBaja;
 
-
-
-    public Integer getEmpleadaId(){
+    
+    public Integer getEmpleadaId() {
         return empleadaId;
     }
 
-    public void setEmpleadaId(Integer empleadaId){
+    public void setEmpleadaId(Integer empleadaId) {
         this.empleadaId = empleadaId;
     }
 
-    public String getNombre(){
+
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre){
+
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public Integer getEdad(){
+
+    public Integer getEdad() {
         return edad;
     }
 
-    public void setEdad(Integer edad){
+
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
-    public Categoria getCategoria(){
+
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria){
+
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-        this.categoria.agregarEmpleada(this); //Relacion bidireccional
+        this.categoria.agregarEmpleada(this);
     }
 
-    public BigDecimal getSueldo(){
+
+    public BigDecimal getSueldo() {
         return sueldo;
     }
 
-    public void setSueldo(BigDecimal sueldo){
+
+    public void setSueldo(BigDecimal sueldo) {
         this.sueldo = sueldo;
     }
 
+
     public EstadoEmpleadaEnum getEstado(){
+
         return EstadoEmpleadaEnum.parse(this.estado);
     }
 
-    public void setEstado(EstadoEmpleadaEnum estado){
+    public void setEstado(EstadoEmpleadaEnum estado) {
         this.estado = estado.getValue();
     }
 
-    public Date getFechaAlta(){
+
+    public Date getFechaAlta() {
         return fechaAlta;
     }
 
-    public void setFechaAlta(Date fechaAlta){
+
+    public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
 
-    public Date getFechaBaja(){
+
+    public Date getFechaBaja() {
         return fechaBaja;
     }
 
-    public void setFechaBaja(Date fechaBaja){
+
+    public void setFechaBaja(Date fechaBaja) {
         this.fechaBaja = fechaBaja;
     }
+
+
 
 
     public enum EstadoEmpleadaEnum{
 
         ACTIVO(1),
         BAJA(2);
+        
 
         private final int value;
 
-        private EstadoEmpleadaEnum(int value){
+        private EstadoEmpleadaEnum(int value) {
             this.value = value;
         }
 
-        public int getValue(){
+        public int getValue() {
             return value;
         }
 
-        public static EstadoEmpleadaEnum parse(int id){
-            EstadoEmpleadaEnum status = null; //default
-            for (EstadoEmpleadaEnum item : EstadoEmpleadaEnum.values()){
-                if (item.getValue() == id){
+        public static EstadoEmpleadaEnum parse(int id) {
+            EstadoEmpleadaEnum status = null; // Default
+            for (EstadoEmpleadaEnum item : EstadoEmpleadaEnum.values()) {
+                if (item.getValue() == id) {
                     status = item;
                     break;
                 }
             }
             return status;
-
         }
+    
 
     }
 
 
 
+    
 }
