@@ -88,4 +88,23 @@ public class EmpleadaController {
      List<Empleada> empleadas = service.traerEmpleadaPorCategoria(catId);
      return ResponseEntity.ok(empleadas);
  }
+
+ @PutMapping("/empleados/{id}/sueldos")
+ public ResponseEntity<GenericResponse> modificarSueldo(@PathVariable Integer id, @RequestBody SueldoNuevoEmpleada sueldoNuevoInfo){
+
+     //1) buscar la empleada
+     Empleada empleada = service.buscarEmpleada(id);
+     //2) setear su nuevo sueldo
+     empleada.setSueldo(sueldoNuevoInfo.sueldoNuevo);
+     //3) guardarlo  en la base de datos
+     service.guardar(empleada);
+
+     GenericResponse respuesta = new GenericResponse();
+
+     respuesta.isOk = true;
+     respuesta.message = "Sueldo actualizado";
+
+     return ResponseEntity.ok(respuesta);
+ } 
+ 
 }
