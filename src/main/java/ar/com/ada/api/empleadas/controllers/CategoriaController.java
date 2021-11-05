@@ -55,10 +55,7 @@ public class CategoriaController {
 
         return ResponseEntity.ok(respuesta);
     }
-   /* @GetMapping("/categorias/sin-empleados")
-    public ResponseEntity<List<Categoria>> obtenerCategoriasSinEmpleadas() {
-        return ResponseEntity.ok(service.obtenerCategoriasSinEmpleadas());
-    }*/
+  
 
     @GetMapping("/categorias/minimo-sueldo")
     public ResponseEntity<Categoria> obtenerCategoriaConMinimoSueldo() {
