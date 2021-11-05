@@ -1,7 +1,11 @@
 package ar.com.ada.api.empleadas.services;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +43,19 @@ public class CategoriaService {
         public void eliminar(Integer id) {
         Categoria categoria = this.buscarCategoria(id);
         repo.delete(categoria);
+  
+    }
+
+    
+    public Categoria obtenerCategoriaConMinimoSueldo() {
+        return traerCategorias().stream().min(Comparator.comparing(Categoria :: getSueldoBase)).get();
+    }
+
+    public List<String> obtenerNombresCategorias(){
+        
+        return this.traerCategorias().stream().map(cat -> cat.getNombre()).collect(Collectors.toList());
+
+        
     }
 }
 
